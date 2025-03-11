@@ -2,7 +2,7 @@ Summary:	Handle redirects for moved pages in Sphinx documentation projects
 Summary(pl.UTF-8):	Obsługa przekierowań przeniesionych stron w projektach dokumentacji Sphinksa
 Name:		python3-sphinx_reredirects
 Version:	0.1.1
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinx-reredirects/
