@@ -2,32 +2,30 @@
 #
 # Conditional build:
 %bcond_with	doc	# Sphinx documentation (TODO)
-%bcond_with	tests	# unit tests (use network)
+%bcond_without	tests	# unit tests
 
 Summary:	Handle redirects for moved pages in Sphinx documentation projects
 Summary(pl.UTF-8):	Obsługa przekierowań przeniesionych stron w projektach dokumentacji Sphinksa
 Name:		python3-sphinx_reredirects
-Version:	1.0.0
+Version:	1.1.0
 Release:	1
-License:	BSD
+License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinx-reredirects/
 Source0:	https://files.pythonhosted.org/packages/source/s/sphinx-reredirects/sphinx_reredirects-%{version}.tar.gz
-# Source0-md5:	235c5f317ce69012d934b97decf64f3f
+# Source0-md5:	1a9456ff9d89c292517b8acb199acb0c
 URL:		https://pypi.org/project/sphinx-reredirects/
 BuildRequires:	python3-build
 BuildRequires:	python3-flit_core >= 3.2
 BuildRequires:	python3-flit_core < 4
 BuildRequires:	python3-installer
 BuildRequires:	python3-modules >= 1:3.11
-BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-Sphinx >= 7.4
 BuildRequires:	python3-pytest >= 8.3.5
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-BuildRequires:	sed >= 4.0
 %if %{with doc}
 BuildRequires:	python3-myst_parser >= 4.0.0
 BuildRequires:	python3-linkify_it_py >= 2.0.3
@@ -61,8 +59,9 @@ dokumentu.
 %py3_build_pyproject
 
 %if %{with tests}
+# test_linkcheck checks external URLs
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-%{__python3} -m pytest tests
+%{__python3} -m pytest tests -k "not test_linkcheck"
 %endif
 
 %if %{with doc}
